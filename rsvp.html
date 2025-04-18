@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wedding RSVP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Imperial+Script&family=Italianno&family=Josefin+Slab:ital,wght@0,100..700;1,100..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    h1 {
+      font-weight: 300;
+      font-size: 6rem;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      text-align: center;
+      font-family: 'Playfair Display', serif;
+
+    }
+
+    h2 {
+      --spacing: 1.5em;
+      font-size: 4rem;
+      letter-spacing: var(--spacing);
+      text-indent: var(--spacing);
+      text-align: center;
+      margin: 0 0 0 0;
+      padding: 0;
+      font-weight: 100;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', serif;
+      line-height: 0.5em;
+    }
+
+    h4,
+    h5,
+    h6,
+    p,
+    span {
+      font-weight: 200;
+      margin: 0;
+    }
+
+    html {
+      background: #151816;
+    }
+
+    body {
+      /* font-family: 'Playfair Display', serif; */
+      font-family: 'Josefin Slab', serif;
+      font-size: 24px;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      /* https://css-pattern.com/cube-columns/ */
+      --s: 120px;
+      /* control the size*/
+      --c1: #151816;
+      --c2: #1c2120;
+      --c3: #1d1f1e;
+      --_g: var(--c3) 0 120deg, #0000 0;
+      background:
+        conic-gradient(from -60deg at 50% calc(100%/3), var(--_g)),
+        conic-gradient(from 120deg at 50% calc(200%/3), var(--_g)),
+        conic-gradient(from 60deg at calc(200%/3), var(--c3) 60deg, var(--c2) 0 120deg, #0000 0),
+        conic-gradient(from 180deg at calc(100%/3), var(--c1) 60deg, var(--_g)),
+        linear-gradient(90deg, var(--c1) calc(100%/6), var(--c2) 0 50%,
+          var(--c1) 0 calc(500%/6), var(--c2) 0);
+      background-size: calc(1.732*var(--s)) var(--s);
+    }
+
+    main {
+      background: linear-gradient(var(--background-dark), var(--background-darker));
+      color: var(--text-color);
+      padding: 2rem;
+      border-radius: 16px;
+      max-width: 40rem;
+      box-shadow: 2px 2px 8px #051100;
+      margin: 2rem;
+      transition: 2500ms;
+    }
+
+    h3 {
+      margin: 0 0 1em 0;
+      padding: 0;
+      position: relative;
+      font-weight: 700;
+      text-shadow: 2px 2px 4px var(--background-dark);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .deets {
+      text-align: center;
+      font-size: 1rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .attendee {
+      background: var(--background-med);
+      padding: 2rem 2rem;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      box-shadow: 2px 2px 8px var(--background-darker);
+    }
+
+    .attendee-choices {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .attendee-choice {
+      display: flex;
+      align-items: baseline;
+    }
+
+    select {
+      color: var(--background-light);
+      background-color: var(--text-color);
+      border: none;
+      border-radius: 6px;
+      background-size: 16px;
+      box-shadow: 2px 2px 2px #222;
+      font-weight: 800;
+    }
+
+    .kindly-respond {
+      margin-bottom: 1rem;
+    }
+
+    button {
+      padding: 0.5rem;
+      width: 100%;
+      background: var(--text-color);
+      color: var(--background-dark);
+      border: none;
+      border-radius: 16px;
+      font-size: 1.35rem;
+      box-shadow: 2px 2px 8px #222;
+      transition: 400ms;
+    }
+
+    button:hover {
+      color: var(--background-light);
+    }
+
+    .fancy {
+      font-family: "Italianno", cursive;
+      font-size: 1.6em;
+      letter-spacing: 0.15em;
+    }
+
+    .cordial-smol {
+      font-family: 'Josefin Slab', serif;
+      font-weight: 100;
+      font-size: 0.95em;
+    }
+
+    .meandering {
+      font-size: 1.2rem;
+    }
+
+    input[type="text"],
+    textarea {
+      font-family: 'Josefin Slab', serif;
+      font-weight: 100;
+      font-size: 1.4em;
+      background: var(--background-med);
+      color: var(--text-color);
+      border: none;
+      border-radius: 4px;
+      width: 100%;
+      padding: 1rem;
+      box-shadow: 0 0 8px #100D18;
+
+    }
+
+    .spacer {
+      margin: 1rem;
+    }
+
+    .success-modal {
+      position: fixed;
+      top: 20vh;
+      left: auto;
+      right: auto;
+      padding: 2rem;
+      border-radius: 32px;
+      background: var(--background-dark);
+      max-width: 90vw;
+      box-shadow: 2px 2px 2px var(--background-darker);
+      border: 4px solid var(--text-color);
+    }
+
+    .success-modal {
+      --spacing: 1em;
+    }
+
+    .success-main {
+      filter: sepia(0.8) grayscale(0.4) blur(3px);
+      pointer-events: none;
+    }
+
+    @media(max-width: 720px) {
+
+      h1, h2 {
+        font-size: 10vw;
+      }
+
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      span,
+      body {
+        font-size: 14px;
+      }
+
+      main {
+        max-width: 95vw;
+      }
+
+      .success-modal > * {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <h1>Dia & Garrett</h1>
+    <h2>RSVP</h2>
+    <div class="deets">
+      <p>May 25 2025 | 5pm until we get kicked out or tired</p>
+      <p><a href="https://www.localitybrewing.ca/">Locality Brewing</a></p>
+    </div>
+    <form action="#" method="POST">
+      <div id="attendees-list">
+      </div>
+      <hr>
+      </hr>
+      <div class="">
+        <div class="spacer">
+          <label for="diet">Dietary Restrictions?</label>
+          <input id="diet" name="diet" type="text" placeholder="We're having tacos" />
+        </div>
+        <div class="spacer">
+          <label for="message">Message for the Couple</label>
+          <textarea id="message" name="message" rows="3"
+            placeholder="..."></textarea>
+        </div>
+      </div>
+      <div class="kindly-respond">
+      <p>Kindly respond by <span class="fancy">whenever</span></p>
+      <p class="meandering"><small>But if <small>we haven't <small>heard from you by <small>say, May 15th or <small>something, we'll <small> have to start <small>bugging you <small>just cause we <small>need final numbers <small>for catering and <small>stuff <small>(which is tacos <small>by the way) <small>but <small>seriously no rush</small></small></small></small></small></small></small></small></small></small></small></small></small></small></small></p>
+      </div>
+      <button type="submit">Submit RSVP</button>
+    </form>
+  </main>
+  <script>
+    const code = new URLSearchParams(window.location.search).get('code');
+    const rsvpForm = document.querySelector('form');
+    const attendeesList = document.querySelector("#attendees-list");
+    const mainElement = document.querySelector('main');
+    rsvpForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const formData = Object.fromEntries(new FormData(event.target).entries());
+      const _response = await fetch(`https://4j5mdzymkwvwnsqueahzr3ylhi0ifccp.lambda-url.us-west-2.on.aws/rsvp`, {
+        method: "POST",
+        body: JSON.stringify({
+          code,
+          formData,
+        })
+      });
+      const response = await _response.json();
+      if (response?.message === "Success") {
+        const successModal = document.createElement("div");
+        successModal.classList.add('success-modal');
+        successModal.innerHTML = `<h1>Cool</h1><h2>Thanks</h2><h1>🤘</h1>`;
+        document.body.append(successModal);
+        mainElement.classList.add('success-main');
+      } else {
+        alert("Something bad happened cause we tried to DIY this, please email us.");
+      }
+      console.log(response);
+      console.log(formData);
+    });
+
+    (async function tailor() {
+      if (!code) return // Show an error screen or something
+      const response = await fetch(`https://4j5mdzymkwvwnsqueahzr3ylhi0ifccp.lambda-url.us-west-2.on.aws/rsvp?code=${code}`);
+      console.log(response.status);
+      if (response.status === 404) {
+        // Handle no code scenario... Idk, show basic form? Block the form?
+        return
+      }
+      const names = await response.json();
+      // const names = ["Sam", "Fazila", "Lvl 1 Companion"];
+      console.log(names);
+      names.forEach(createAttendee);
+    })();
+
+    function createAttendee(attendeeName = "") {
+      const attendeeNameSquished = attendeeName.split(' ').join('');
+      const phrase = '';
+      // const phrase = "is cordially invited to the celebratory gathering in honour of the matrimonial union of Ardelia Tay and Garrett Brick for the purpose of revelry and fellowship on the basis of a first- or second-order familial or pseudofamilial relationship with one or both members of the matrimonial pair."
+      const template = `
+            <h3>${attendeeName}${phrase.split(' ').reduce((_phrase, word) => _phrase + `<span class="cordial-smol"> ${word}`, '') + "</span>".repeat(phrase.length)}</h3>
+            <div class="attendee-choices">
+              <div class="attendee-choice">
+                <input type="radio" id="attendee-${attendeeNameSquished}-yes" name="${attendeeNameSquished}-isAttending" value="yes">
+                <label for="attendee-${attendeeNameSquished}-yes">${attendeeName} accepts with 
+                  <select name="attendee-${attendeeNameSquished}-acceptsWith">
+                    <option value="" disabled selected>...</option>
+                    <option>pleasure</option>
+                    <option>glee</option>
+                    <option>immeasureable joy</option>
+                    <option>world-shaking euphoria</option>
+                    <option>mild confusion</option>
+                    <option>bated breath</option>
+                    <option>stoic composure</option>
+                    <option>fondness</option>
+                    <option>giddiness</option>
+                    <option>gusto</option>
+                    <option>determination</option>
+                    <option>vigorous enthusiasm</option>
+                    <option>tempered expectations</option>
+                    <option>cautious optimism</option>
+                    <option>reckless optimism</option>
+                    <option>heartfelt warmth</option> 
+                    <option>an ulterior motive (please disclose)</option>
+                    <option>affable propriety</option>
+                    <option>relief</option>
+                    <option>trepidation</option>
+                    <option>incumbent obligation, mostly</option>
+                    <option>curiosity</option>
+                    <option>suspicion</option>
+                    <option>schadenfreude</option>
+                    <option>bemusement</option>
+                    <option>no particular emotional valence</option>
+                  </select>
+                </label>
+              </div>
+              <div class="attendee-choice">
+                <input type="radio" id="attendee-${attendeeNameSquished}-no" name="${attendeeNameSquished}-isAttending" value="no">
+                <label for="attendee-${attendeeNameSquished}-no">${attendeeName} declines with
+                  <select name="attendee-${attendeeNameSquished}-declinesWith">
+                    <option value="" disabled selected>...</option>
+                    <option>regret</option>
+                    <option>sadness</option>
+                    <option>anguish</option>
+                    <option>...out a second thought</option>
+                    <option>guilt, crushing</option>
+                    <option>guilt, proportional</option>
+                    <option>guilt, feigned</option>
+                    <option>promises to come to the next one</option>
+                    <option>confusion</option>
+                    <option>obliviousness</option>
+                    <option>indifference, frankly</option>
+                    <option>insurmountable shyness or reclusiveness</option>
+                    <option>schadenfreude</option>
+                    <option>a damn good excuse</option>
+                    <option>no inclination to elaborate</option>
+                    <option>shame, personal</option>
+                    <option>shame, vicarious</option>
+                    <option>better plans that day</option>
+                    <option>malicious satisfaction</option>
+                    <option>no particular emotional valence</option>
+                  </select>
+                </label>
+              </div>
+            </div>`;
+      const element = document.createElement('div');
+      element.classList.add('attendee');
+      element.innerHTML = template;
+      element.querySelectorAll('select').forEach(select => {
+        'focus change'.split(' ').forEach(eventType => {
+          select.addEventListener(eventType, (event) => {
+            const radio = event.target.parentElement.parentElement.querySelector('input');
+            if (select && radio) {
+              radio.checked = true;
+            }
+          })
+        })
+      });
+      attendeesList.append(element);
+    }
+  </script>
+</body>
+
+</html>

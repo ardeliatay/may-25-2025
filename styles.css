@@ -1,11 +1,17 @@
+:root {
+  --background-darker: #1f241c;
+  --background-dark: #293326;
+  --background-med: #3f4a3c;
+  --background-light: #5C6E53;
+  --text-color: rgb(210, 220, 190);
+}
+
 body {
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: black;
+  background-color: var(--background-dark);
   font-family: 'Playfair Display', serif;
-  color: white;
-  font-size: 2rem;
+  color: #f0f0f0;
 }
