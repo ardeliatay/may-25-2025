@@ -126,6 +126,21 @@
       align-items: baseline;
     }
 
+    .attendee-fact {
+      display: flex;
+      flex-direction: column;
+      margin: 0.5rem 0;
+      gap: 0.3rem;
+    }
+
+    .attendee-fact > input[type="text"] {
+      font-size: 1rem;
+      padding: 0.5em;
+      background: var(--text-color);
+      color: var(--background-darker);
+      font-weight: 500;
+    }
+
     select {
       color: var(--background-light);
       background-color: var(--text-color);
@@ -314,6 +329,32 @@
       names.forEach(createAttendee);
     })();
 
+    const factExamples = [
+      "Collects fancy pencils",
+      "Two bellybuttons",
+      "Has never purchased groceries",
+      "Licensed to drive a school bus",
+      "Has an album on Spotify",
+      "Makes own kombucha",
+      "Published a book",
+      "Won a hot dog eating contest one or more times",
+      "Ran a food truck for a little while",
+      "Owns land in a foreign country",
+      "Has the same birthday as Kermit Roosevelt",
+      "Wakes up at 4:00 AM",
+      "No sense of smell",
+      "Has a degree in something weird",
+    ];
+
+    function selectFact() {
+      const factIdx = Math.floor(Math.random() * factExamples.length);
+      const fact = factExamples.splice(factIdx, 1)[0];
+      if (!fact) console.error("Uhh ran out of facts");
+      return fact || '';
+    }
+
+
+
     function createAttendee(attendeeName = "") {
       const attendeeNameSquished = attendeeName.split(' ').join('');
       const phrase = '';
@@ -332,6 +373,7 @@
                     <option>world-shaking euphoria</option>
                     <option>mild confusion</option>
                     <option>bated breath</option>
+                    <option>conditions (please disclose)</option>
                     <option>stoic composure</option>
                     <option>fondness</option>
                     <option>giddiness</option>
@@ -383,6 +425,9 @@
                   </select>
                 </label>
               </div>
+              <div class="attendee-fact">
+                <label for="attendee-${attendeeNameSquished}-fact">Please disclose one interesting fact about this person</label>
+                <input id="attendee-${attendeeNameSquished}-fact" name="attendee-${attendeeNameSquished}-fact" type="text" placeholder="e.g. ${selectFact()}">
             </div>`;
       const element = document.createElement('div');
       element.classList.add('attendee');
